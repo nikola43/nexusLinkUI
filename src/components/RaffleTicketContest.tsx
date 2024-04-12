@@ -33,7 +33,7 @@ const RaffleTicketContestDescription = styled.p`
 const raffleTicketContestData = {
   title: "WIN BIG",
   description:
-    "Join the Cryptocurrency Raffle Tickets Contest to seize the opportunity for substantial wins! Acquire your raffle tickets with Solana and enter the draw. Increasing your ticket purchases enhances your probability of securing prizes. Seize this electrifying chance to transform your cryptocurrency into remarkable rewards!",
+    "We are committed to breaking down the silos that separate blockchain networks, creating bridges that enable interoperability on a global scale. By fostering seamless communication between disparate platforms, MatrixCoin empowers users to transact freely, without constraints or barriers.",
 };
 
 const StyledButtons = styled.a`

@@ -5,6 +5,7 @@ const FeaturesSection = styled.section`
   display: flex;
   flex-direction: column;
   padding: 0 20px;
+
   @media (max-width: 991px) {
     width: 90%;
   }
@@ -37,17 +38,37 @@ const tokenomicsData = [
   {
     title: "Anonymity",
     value:
-      "Jump straight into action by connecting your wallet—no registration required.",
+      "Jump straight into action by connecting your wallet, no registration required.",
     logo: "https://i.postimg.cc/zHz0ZmDF/1.png",
   },
   {
     title: "Security",
-    value: "Experience unmatched transparency with the Solana Blockchain.",
+    value:
+      "Transactions are executed through non-custodied decentralised contracts based on ChainLink CCIP core contracts.",
     logo: "https://i.postimg.cc/6TcMVQzj/2.png",
   },
   {
-    title: "Fairness First",
-    value: "We leverage ChainLink VRF technology to ensure absolute fairness in randomness.",
+    title: "Low Gas Fees",
+    value:
+      "Very low fees, $0.25 for non-eth chains, $0.50 from eth, $5 to eth.",
+    logo: "https://i.postimg.cc/DmnCbGQ4/3.png",
+  },
+  {
+    title: "Low Processing Time",
+    value:
+      "We know that some bridges take hours or even days to process transactions, using nexus you can transfer your tokens within minutes.",
+    logo: "https://i.postimg.cc/DmnCbGQ4/3.png",
+  },
+  {
+    title: "Interoperability",
+    value:
+      "Nexus supports multiple chains and multiple tokens, you can transfer stable coins like USDC or native currencies like ETH, AVAX, BNB etc.",
+    logo: "https://i.postimg.cc/DmnCbGQ4/3.png",
+  },
+  {
+    title: "Stimulating",
+    value:
+      "You can test our protocol on testnet without spending real money to see how it works.",
     logo: "https://i.postimg.cc/DmnCbGQ4/3.png",
   },
 ];
@@ -64,6 +85,7 @@ const FeaturesCardsContainer = styled.div`
   align-items: center;
   aling-content: center;
   flex-wrap: wrap;
+  max-width: 80%;
 `;
 
 const FeaturesCard = styled.div`

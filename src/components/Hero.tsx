@@ -54,15 +54,15 @@ const logos = [
 const Hero = () => {
   return (
     <>
-      <HeroSection>
+      {/* <HeroSection>
         <HeroImg
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/3f03738191e9ab462c8a9fec58fa1f5c969d3200a3236f2394038ce17b52bd44?apiKey=62999276618d44279ca60b7a2a85e28a&"
           alt="Hero Image"
         />
-      </HeroSection>
+      </HeroSection> */}
       <HeroSection2>
         <HeroImg2
-          src="https://i.postimg.cc/y6TZRT3d/Win-Big.png"
+          src="https://i.postimg.cc/L85xzL6z/Screenshot-2024-04-12-at-12-05-10-removebg-preview.png"
           alt="Hero Image"
         />
       </HeroSection2>
