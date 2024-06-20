@@ -31,7 +31,7 @@ const RaffleTicketContestDescription = styled.p`
 `;
 
 const raffleTicketContestData = {
-  title: "WIN BIG",
+  title: "NEXUS",
   description:
     "We are committed to breaking down the silos that separate blockchain networks, creating bridges that enable interoperability on a global scale. By fostering seamless communication between disparate platforms, MatrixCoin empowers users to transact freely, without constraints or barriers.",
 };

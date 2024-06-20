@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
         </TopSection>
         <Divider />
         <BottomSection>
-          <Copyright>© 2024 WIN. All rights reserved.</Copyright>
+          <Copyright>© 2024 NEXUS. All rights reserved.</Copyright>
           <SocialIconsContainer>
             {socialIcons.map((icon, index) => (
               <SocialIcon key={index} src={icon.src} alt={icon.alt} />
