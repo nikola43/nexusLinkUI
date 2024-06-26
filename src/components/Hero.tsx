@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import CryptoExchange from "./CryptoExchange";
 
 const HeroSection = styled.section`
   display: flex;
@@ -66,6 +67,8 @@ const Hero = () => {
           alt="Hero Image"
         />
       </HeroSection2>
+
+      <CryptoExchange />
       {/* <LogoSection>
         {logos.map((logo, index) => (
           <LogoBig key={index} src={logo.src} alt={logo.alt} />
