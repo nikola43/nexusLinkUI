@@ -91,7 +91,8 @@ interface LogoProps {
 const LogoImage = styled.img`
   aspect-ratio: 1;
   object-fit: contain;
-  width: 60px;
+  width: 120px;
+  height: 30px;
   cursor: pointer;
   scale: 1.8;
 `;

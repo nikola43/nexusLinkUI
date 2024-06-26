@@ -4,6 +4,8 @@ const FeaturesSection = styled.section`
   margin-top: 100px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 0 20px;
 
   @media (max-width: 991px) {
@@ -83,7 +85,6 @@ const FeaturesCardsContainer = styled.div`
   margin-top: 50px;
   justify-content: center;
   align-items: center;
-  aling-content: center;
   flex-wrap: wrap;
   max-width: 80%;
 `;
