@@ -151,12 +151,12 @@ const Header = () => {
               <SocialIcon key={icon.src} src={icon.src} alt={icon.alt} />
             ))}
           </SocialIcons> */}
-          <EnterCompetitionButton
+          {/* <EnterCompetitionButton
             href="https://beamish-kangaroo-4d4e0e.netlify.app/"
             target="blank_"
           >
             Enter Competition
-          </EnterCompetitionButton>
+          </EnterCompetitionButton> */}
         </SocialIconsWrapper>
       </HeaderContent>
     </HeaderWrapper>

@@ -112,8 +112,8 @@ const Tokenomics = () => {
     <TokenomicsSection id="tokenomics">
       <TokenomicsTitle>Tokenomics</TokenomicsTitle>
       <TokenomicsCardsContainer>
-        {tokenomicsData.map((data) => (
-          <TokenomicsCard key={data.title}>
+        {tokenomicsData.map((data, idx) => (
+          <TokenomicsCard key={idx}>
             {data.logo && <TokenomicsCardLogo src={data.logo} />}
             {data.title && (
               <TokenomicsCardTitle>{data.title}</TokenomicsCardTitle>

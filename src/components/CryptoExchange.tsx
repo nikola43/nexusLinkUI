@@ -1,5 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Select, { components } from 'react-select';
+
 import styled from "styled-components";
+import { currencyLists } from "../constants/exchange";
+import axios from "axios";
+import SingleValue from "react-select/dist/declarations/src/components/SingleValue";
 
 const Container = styled.div`
   width: 400px;
@@ -31,19 +36,11 @@ const Label = styled.label`
 const InputWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  width: 60%;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font: 500 16px Gilroy-Light, sans-serif;
-`;
-
-const Select = styled.select`
-  margin-left: 10px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -80,45 +77,125 @@ const Row = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
 `;
 
+const CoinImage = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+`;
+
+const Badge = styled.span`
+  text-transform: uppercase;
+  padding: 1px 6px;
+  color: white;
+  background: grey;
+  margin: 0px 5px;
+  font-size: 12px;
+  border-radius: 10px;
+`
+
+const customSingleValue = ({ data }: any) => (
+  <div style={{ display: 'inline-flex', alignItems: 'center' }}>
+    <CoinImage src={data.image} alt={data.label} />
+    {data.label}
+    <Badge>{data.network}</Badge>
+  </div>
+)
+
+const customOption = (props: any) => {
+  const { data, innerRef, innerProps } = props;
+  return (
+    <div
+      ref={innerRef}
+      {...innerProps}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        padding: '10px',
+        cursor: 'pointer',
+        borderBottom: '1px solid #ccc',
+      }}
+    >
+      <CoinImage src={data.image} alt={data.label} />
+      {data.label}
+      <Badge>{data.network}</Badge>
+    </div>
+  );
+};
+
+const CustomValueContainer = (props: any) => {
+  const { children, ...rest } = props;
+
+  return (
+    <components.ValueContainer {...rest}>
+      <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
+        {children}
+      </div>
+    </components.ValueContainer>
+  );
+};
+
+
 const CryptoExchange: React.FC = () => {
-  const [btcAmount, setBtcAmount] = useState("0.1");
-  const [ethAmount, setEthAmount] = useState("2.16105494");
+  const [sendAmount, setSendAmount] = useState(0.1);
+  const [receiveAmount, setReceiveAmount] = useState(0);
   const [rate, setRate] = useState("Floating rate");
-  const [sendCurrency, setSendCurrency] = useState("BTC");
-  const [receiveCurrency, setReceiveCurrency] = useState("ETH");
+  const [isOpen, setIsOpen] = useState(false);
+  const [sendCurrency, setSendCurrency] = useState({ value: currencyLists[0].symbol, label: currencyLists[0].symbol, image: currencyLists[0].logo, network: currencyLists[0].network });
+  const [receiveCurrency, setReceiveCurrency] = useState({ value: currencyLists[1].symbol, label: currencyLists[1].symbol, image: currencyLists[1].logo, network: currencyLists[1].network });
 
   const toggleRate = () => {
     setRate(rate === "Floating rate" ? "Fixed rate" : "Floating rate");
   };
 
   const handleCurrencySwap = () => {
-    setSendCurrency(receiveCurrency);
-    setReceiveCurrency(sendCurrency);
+    setSendCurrency({ ...receiveCurrency });
+    setReceiveCurrency({ ...sendCurrency });
   };
+
+  const fetchExchangeRate = async () => {
+    try {
+      const res = await axios.get(`https://api.coinconvert.net/convert/${sendCurrency.value}/${receiveCurrency.value}?amount=${sendAmount}`);
+      setReceiveAmount(res.data[receiveCurrency.value])
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => { fetchExchangeRate() }, []);
+
+  useEffect(() => {
+    if (sendCurrency.value !== receiveCurrency.value && sendAmount > 0) {
+      fetchExchangeRate();
+    }
+  }, [sendCurrency, receiveCurrency, sendAmount]);
 
   return (
     <Container>
       <Title>Crypto Exchange</Title>
       <Label>
         You send
+      </Label>
+      <Row>
         <InputWrapper>
           <Input
-            type="text"
-            value={btcAmount}
-            onChange={(e) => setBtcAmount(e.target.value)}
+            type="number"
+            value={sendAmount}
+            onChange={(e) => setSendAmount(parseFloat(e.target.value))}
           />
-          <Select
-            onChange={(e) => setSendCurrency(e.target.value)}
-            defaultValue={sendCurrency}
-            value={sendCurrency}
-          >
-            <option value="BTC">BTC</option>
-            <option value="ETH">ETH</option>
-          </Select>
         </InputWrapper>
-      </Label>
+        <Select
+          styles={{container: (props)=>({...props, width: '40% !important'})}}
+          isSearchable={false}
+          value={sendCurrency}
+          onChange={(value: any)=>setSendCurrency(value)}
+          options={currencyLists.map((item) => {
+            return { value: item.symbol, label: item.symbol, image: item.logo, network: item.network }
+          })}
+          components={{ SingleValue: customSingleValue, Option: customOption, ValueContainer: CustomValueContainer }}
+        />
+      </Row>
       <Row>
         <Label>
           <RateWrapper>
@@ -132,22 +209,26 @@ const CryptoExchange: React.FC = () => {
       </Row>
       <Label>
         You get
+      </Label>
+      <Row>
         <InputWrapper>
           <Input
             type="text"
-            value={ethAmount}
-            onChange={(e) => setEthAmount(e.target.value)}
+            value={receiveAmount}
+            readOnly
           />
-          <Select
-            defaultValue={receiveCurrency}
-            value={receiveCurrency}
-            onChange={(e) => setReceiveCurrency(e.target.value)}
-          >
-            <option value="ETH">ETH</option>
-            <option value="BTC">BTC</option>
-          </Select>
         </InputWrapper>
-      </Label>
+        <Select
+          styles={{container: (props)=>({...props, width: '40% !important'})}}
+          isSearchable={false}
+          value={receiveCurrency}
+          onChange={(value: any)=>setReceiveCurrency(value)}
+          options={currencyLists.map((item) => {
+            return { value: item.symbol, label: item.symbol, image: item.logo, network: item.network }
+          })}
+          components={{ SingleValue: customSingleValue, Option: customOption, ValueContainer: CustomValueContainer }}
+        />
+      </Row>
       <Button>Exchange</Button>
     </Container>
   );

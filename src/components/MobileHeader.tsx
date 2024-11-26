@@ -78,12 +78,12 @@ const MobileHeader = () => {
       />
       {isOpen && (
         <Links>
-          <EnterCompetitionButton
+          {/* <EnterCompetitionButton
             href="https://beamish-kangaroo-4d4e0e.netlify.app/"
             target="blank_"
           >
             Enter Competition
-          </EnterCompetitionButton>
+          </EnterCompetitionButton> */}
           <Link href="#home">Home</Link>
           <Link href="#features">Features</Link>
           <Link href="#tokenomics">Tokenomics</Link>
